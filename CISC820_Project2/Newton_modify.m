@@ -1,4 +1,6 @@
-function [Traj,Fmin] = Newton(f,g,H,N,E,c,x)
+function [Traj,Fmin] = Newton_modify(f,g,H,N,E,c,x)
+% bouns method---  modified Hessian 
+% modified cholesky Statigies 
 
 pos=x;
 n=length(x);
@@ -6,7 +8,9 @@ Traj=zeros(n,N);
 Traj(:,1)=pos;
 
 for i=1:N
-    p=H(pos)\(-g(pos)) ;   % x = A\B 对线性方程组 A*x = B 求解
+    mu=abs(min(eig(H(pos))))+E;
+    p=(H(pos)+mu*eye(n))\(-g(pos));  
+    
     stepsize=linesearch(pos,p,c,f,g);
     pos=pos+stepsize*p;
     Traj(:,i+1)=pos;
@@ -21,3 +25,4 @@ end
 
 end
     
+
