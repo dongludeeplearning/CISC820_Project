@@ -1,6 +1,5 @@
 function [P, s, X_new, per] = PCA (data, type)
 
-
 %type=1, svd
 %type=2, eigen
 

@@ -1,4 +1,4 @@
-function  pca_face(data)
+function  [P, s, X_new, per]=pca_face(data)
 
 data=double(data);
 [P,s,X_new,per]=PCA(data,1);
@@ -22,12 +22,11 @@ pause;
 % visualize top_n pc
 % Change n to control the number of PCs;
 
-n=117;
+n=110; %  capture 90%
 y=P(:,1:n)*X_new(1:n,:)+m*ones(1, size(data,2));
 str =sprintf('%d%s',n,'pc');
 
 %figure;
-%title(str);
 for i=1:5
     subplot(2,5,i);
     I =reshape(y(:,i),112,92);
